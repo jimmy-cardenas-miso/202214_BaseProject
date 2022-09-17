@@ -6,11 +6,13 @@ import { City } from './city/city.entity';
 import { CityModule } from './city/city.module';
 import { SupermarketModule } from './supermarket/supermarket.module';
 import { Supermarket } from './supermarket/supermarket.entity';
+import {CitySupermarketModule} from "./city-supermarket/city-supermarket.module";
 
 @Module({
   imports: [
     CityModule,
     SupermarketModule,
+    CitySupermarketModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',

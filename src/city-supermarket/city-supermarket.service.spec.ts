@@ -67,7 +67,7 @@ describe('CitySupermarketService', () => {
       name: faker.word.adjective(),
     });
 
-    const result: City = await service.associateSupermarketCity(
+    const result: City = await service.addSupermarketToCity(
       newCity.id,
       newSupermarket.id,
     );
@@ -85,7 +85,7 @@ describe('CitySupermarketService', () => {
     });
 
     await expect(() =>
-      service.associateSupermarketCity(newCity.id, '0'),
+      service.addSupermarketToCity(newCity.id, '0'),
     ).rejects.toHaveProperty(
       'message',
       'The supermarket with the given id was not found',
@@ -117,7 +117,7 @@ describe('CitySupermarketService', () => {
     });
 
     await expect(() =>
-      service.associateSupermarketCity(newCity.id, '0'),
+      service.addSupermarketToCity(newCity.id, '0'),
     ).rejects.toHaveProperty(
       'message',
       'The supermarket with the given id was not found',
