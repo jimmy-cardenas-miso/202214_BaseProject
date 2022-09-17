@@ -19,7 +19,9 @@ describe('SupermarketService', () => {
     }).compile();
 
     service = module.get<SupermarketService>(SupermarketService);
-    repository = module.get<Repository<Supermarket>>(getRepositoryToken(Supermarket));
+    repository = module.get<Repository<Supermarket>>(
+      getRepositoryToken(Supermarket),
+    );
     await seedDatabase();
   });
 
@@ -29,6 +31,9 @@ describe('SupermarketService', () => {
     for (let i = 0; i < 5; i++) {
       const supermarket = new Supermarket();
       supermarket.name = faker.word.adjective();
+      supermarket.longitude = +faker.random.numeric(4);
+      supermarket.latitude = +faker.random.numeric(4);
+      supermarket.web_page = faker.internet.url();
       await repository.save(supermarket);
       supermarketList.push(supermarket);
     }
@@ -46,9 +51,14 @@ describe('SupermarketService', () => {
 
   it('findOne should return a supermarket by id', async () => {
     const storedSupermarket: Supermarket = supermarketList[0];
-    const supermarket: SupermarketDTO = await service.findOne(storedSupermarket.id);
+    const supermarket: SupermarketDTO = await service.findOne(
+      storedSupermarket.id,
+    );
     expect(supermarket).not.toBeNull();
     expect(supermarket.name).toEqual(storedSupermarket.name);
+    expect(supermarket.longitude).toEqual(storedSupermarket.longitude);
+    expect(supermarket.latitude).toEqual(storedSupermarket.latitude);
+    expect(supermarket.web_page).toEqual(storedSupermarket.web_page);
   });
 
   it('findOne should throw an exception for an invalid supermarket', async () => {
@@ -62,8 +72,10 @@ describe('SupermarketService', () => {
     const supermarket: Supermarket = {
       id: '',
       name: faker.word.adjective(),
-      name: faker.word.adjective(),
-      products: [],
+      longitude: +faker.random.numeric(4),
+      latitude: +faker.random.numeric(4),
+      web_page: faker.internet.url(),
+      cities: [],
     };
 
     const newSupermarket: SupermarketDTO = await service.create(supermarket);
@@ -73,11 +85,19 @@ describe('SupermarketService', () => {
     });
     expect(storedSupermarket).not.toBeNull();
     expect(storedSupermarket.name).toEqual(newSupermarket.name);
+    expect(storedSupermarket.longitude).toEqual(newSupermarket.longitude);
+    expect(storedSupermarket.latitude).toEqual(newSupermarket.latitude);
+    expect(storedSupermarket.web_page).toEqual(newSupermarket.web_page);
   });
 
   it('update should modify a supermarket', async () => {
     const supermarket: Supermarket = supermarketList[0];
-    supermarket.name = 'New name';
+
+    supermarket.name = faker.word.adjective();
+    supermarket.longitude = +faker.random.numeric(4);
+    supermarket.latitude = +faker.random.numeric(4);
+    supermarket.web_page = faker.internet.url();
+
     const updatedSupermarket: SupermarketDTO = await service.update(
       supermarket.id,
       supermarket,
@@ -88,13 +108,19 @@ describe('SupermarketService', () => {
     });
     expect(storedSupermarket).not.toBeNull();
     expect(storedSupermarket.name).toEqual(supermarket.name);
+    expect(storedSupermarket.longitude).toEqual(supermarket.longitude);
+    expect(storedSupermarket.latitude).toEqual(supermarket.latitude);
+    expect(storedSupermarket.web_page).toEqual(supermarket.web_page);
   });
 
   it('update should throw an exception for an invalid supermarket', async () => {
     let supermarket: Supermarket = supermarketList[0];
     supermarket = {
       ...supermarket,
-      name: 'New name',
+      name: faker.word.adjective(),
+      longitude: +faker.random.numeric(4),
+      latitude: +faker.random.numeric(4),
+      web_page: faker.internet.url(),
     };
     await expect(() => service.update('0', supermarket)).rejects.toHaveProperty(
       'message',

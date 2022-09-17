@@ -28,7 +28,9 @@ describe('CityService', () => {
     cityList = [];
     for (let i = 0; i < 5; i++) {
       const city = new City();
-      city.name = faker.word.adjective();
+      city.name = faker.address.city();
+      city.country = faker.address.country();
+      city.population = +faker.random.numeric(2);
       await repository.save(city);
       cityList.push(city);
     }
@@ -49,6 +51,8 @@ describe('CityService', () => {
     const city: CityDTO = await service.findOne(storedCity.id);
     expect(city).not.toBeNull();
     expect(city.name).toEqual(storedCity.name);
+    expect(city.country).toEqual(storedCity.country);
+    expect(city.population).toEqual(storedCity.population);
   });
 
   it('findOne should throw an exception for an invalid city', async () => {
@@ -61,8 +65,10 @@ describe('CityService', () => {
   it('create should return a new city', async () => {
     const city: City = {
       id: '',
-      name: faker.word.adjective(),
-      products: [],
+      name: faker.address.city(),
+      country: faker.address.country(),
+      population: +faker.random.numeric(2),
+      supermarkets: [],
     };
 
     const newCity: CityDTO = await service.create(city);
@@ -76,24 +82,28 @@ describe('CityService', () => {
 
   it('update should modify a city', async () => {
     const city: City = cityList[0];
-    city.name = 'New name';
-    const updatedCity: CityDTO = await service.update(
-      city.id,
-      city,
-    );
+    city.name = faker.address.city();
+    city.country = faker.address.country();
+    city.population = +faker.random.numeric(2);
+
+    const updatedCity: CityDTO = await service.update(city.id, city);
     expect(updatedCity).not.toBeNull();
     const storedCity: City = await repository.findOne({
       where: { id: city.id },
     });
     expect(storedCity).not.toBeNull();
     expect(storedCity.name).toEqual(city.name);
+    expect(storedCity.country).toEqual(city.country);
+    expect(storedCity.population).toEqual(city.population);
   });
 
   it('update should throw an exception for an invalid city', async () => {
     let city: City = cityList[0];
     city = {
       ...city,
-      name: 'New name',
+      name: faker.address.city(),
+      country: faker.address.country(),
+      population: +faker.random.numeric(2),
     };
     await expect(() => service.update('0', city)).rejects.toHaveProperty(
       'message',
