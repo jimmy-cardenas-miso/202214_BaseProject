@@ -35,6 +35,12 @@ export class CityService {
   async create(cityDTO: CityDTO): Promise<CityDTO> {
     const city = new City();
 
+    if (!isValidCity(cityDTO.country))
+      throw new BusinessLogicException(
+        'The city is not includes in Argentina, Ecuador or Paraguay',
+        BusinessError.BAD_REQUEST,
+      );
+
     city.name = cityDTO.name;
     city.country = cityDTO.country;
     city.population = cityDTO.population;
@@ -48,6 +54,12 @@ export class CityService {
       throw new BusinessLogicException(
         'The city with the given id was not found',
         BusinessError.NOT_FOUND,
+      );
+
+    if (!isValidCity(cityDTO.country))
+      throw new BusinessLogicException(
+        'The city is not includes in Argentina, Ecuador or Paraguay',
+        BusinessError.BAD_REQUEST,
       );
 
     city.name = cityDTO.name;
@@ -67,4 +79,8 @@ export class CityService {
       );
     else return await this.cityRepository.remove(city);
   }
+}
+
+function isValidCity(city: string): boolean {
+  return ['Argentina', 'Ecuador', 'Paraguay'].includes(city);
 }

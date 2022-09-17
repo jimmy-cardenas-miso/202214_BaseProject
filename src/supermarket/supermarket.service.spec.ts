@@ -31,8 +31,8 @@ describe('SupermarketService', () => {
     for (let i = 0; i < 5; i++) {
       const supermarket = new Supermarket();
       supermarket.name = faker.word.adjective();
-      supermarket.longitude = +faker.random.numeric(4);
-      supermarket.latitude = +faker.random.numeric(4);
+      supermarket.longitude = faker.address.longitude();
+      supermarket.latitude = faker.address.latitude();
       supermarket.web_page = faker.internet.url();
       await repository.save(supermarket);
       supermarketList.push(supermarket);
@@ -72,8 +72,8 @@ describe('SupermarketService', () => {
     const supermarket: Supermarket = {
       id: '',
       name: faker.word.adjective(),
-      longitude: +faker.random.numeric(4),
-      latitude: +faker.random.numeric(4),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
       web_page: faker.internet.url(),
       cities: [],
     };
@@ -94,8 +94,8 @@ describe('SupermarketService', () => {
     const supermarket: Supermarket = supermarketList[0];
 
     supermarket.name = faker.word.adjective();
-    supermarket.longitude = +faker.random.numeric(4);
-    supermarket.latitude = +faker.random.numeric(4);
+    supermarket.longitude = faker.address.longitude();
+    supermarket.latitude = faker.address.latitude();
     supermarket.web_page = faker.internet.url();
 
     const updatedSupermarket: SupermarketDTO = await service.update(
@@ -118,8 +118,8 @@ describe('SupermarketService', () => {
     supermarket = {
       ...supermarket,
       name: faker.word.adjective(),
-      longitude: +faker.random.numeric(4),
-      latitude: +faker.random.numeric(4),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
       web_page: faker.internet.url(),
     };
     await expect(() => service.update('0', supermarket)).rejects.toHaveProperty(

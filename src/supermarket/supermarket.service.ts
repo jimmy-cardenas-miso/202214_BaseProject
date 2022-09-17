@@ -35,6 +35,12 @@ export class SupermarketService {
   async create(supermarketDTO: SupermarketDTO): Promise<SupermarketDTO> {
     const supermarket = new Supermarket();
 
+    if (!isValidLength(supermarketDTO.name))
+      throw new BusinessLogicException(
+        'The supermarket name has less than 10 characters',
+        BusinessError.BAD_REQUEST,
+      );
+
     supermarket.name = supermarketDTO.name;
     supermarket.longitude = supermarketDTO.longitude;
     supermarket.latitude = supermarketDTO.latitude;
@@ -54,6 +60,12 @@ export class SupermarketService {
       throw new BusinessLogicException(
         'The supermarket with the given id was not found',
         BusinessError.NOT_FOUND,
+      );
+
+    if (!isValidLength(supermarketDTO.name))
+      throw new BusinessLogicException(
+        'The supermarket name has less than 10 characters',
+        BusinessError.BAD_REQUEST,
       );
 
     supermarket.name = supermarketDTO.name;
@@ -76,4 +88,8 @@ export class SupermarketService {
       );
     else return await this.supermarketRepository.remove(supermarket);
   }
+}
+
+function isValidLength(supermarketName: string): boolean {
+  return supermarketName.length > 10;
 }

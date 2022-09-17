@@ -1,5 +1,11 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from 'typeorm';
-import {City} from "../city/city.entity";
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { City } from '../city/city.entity';
 
 @Entity()
 export class Supermarket {
@@ -10,10 +16,10 @@ export class Supermarket {
   name: string;
 
   @Column()
-  longitude: number;
+  longitude: string;
 
   @Column()
-  latitude: number;
+  latitude: string;
 
   @Column()
   web_page: string;
