@@ -34,7 +34,11 @@ export class CityService {
 
   async create(cityDTO: CityDTO): Promise<CityDTO> {
     const city = new City();
+
     city.name = cityDTO.name;
+    city.country = cityDTO.country;
+    city.population = cityDTO.population;
+
     return await this.cityRepository.save(city);
   }
 
@@ -47,6 +51,9 @@ export class CityService {
       );
 
     city.name = cityDTO.name;
+    city.country = cityDTO.country;
+    city.population = cityDTO.population;
+
     await this.cityRepository.save(city);
     return city;
   }

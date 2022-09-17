@@ -34,12 +34,22 @@ export class SupermarketService {
 
   async create(supermarketDTO: SupermarketDTO): Promise<SupermarketDTO> {
     const supermarket = new Supermarket();
+
     supermarket.name = supermarketDTO.name;
+    supermarket.longitude = supermarketDTO.longitude;
+    supermarket.latitude = supermarketDTO.latitude;
+    supermarket.web_page = supermarketDTO.web_page;
+
     return await this.supermarketRepository.save(supermarket);
   }
 
-  async update(id: string, supermarketDTO: SupermarketDTO): Promise<SupermarketDTO> {
-    const supermarket = await this.supermarketRepository.findOne({ where: { id } });
+  async update(
+    id: string,
+    supermarketDTO: SupermarketDTO,
+  ): Promise<SupermarketDTO> {
+    const supermarket = await this.supermarketRepository.findOne({
+      where: { id },
+    });
     if (!supermarket)
       throw new BusinessLogicException(
         'The supermarket with the given id was not found',
@@ -47,12 +57,18 @@ export class SupermarketService {
       );
 
     supermarket.name = supermarketDTO.name;
+    supermarket.longitude = supermarketDTO.longitude;
+    supermarket.latitude = supermarketDTO.latitude;
+    supermarket.web_page = supermarketDTO.web_page;
+
     await this.supermarketRepository.save(supermarket);
     return supermarket;
   }
 
   async delete(id: string) {
-    const supermarket = await this.supermarketRepository.findOne({ where: { id } });
+    const supermarket = await this.supermarketRepository.findOne({
+      where: { id },
+    });
     if (!supermarket)
       throw new BusinessLogicException(
         'The supermarket with the given id was not found',

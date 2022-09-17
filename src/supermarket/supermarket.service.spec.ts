@@ -62,6 +62,7 @@ describe('SupermarketService', () => {
     const supermarket: Supermarket = {
       id: '',
       name: faker.word.adjective(),
+      name: faker.word.adjective(),
       products: [],
     };
 

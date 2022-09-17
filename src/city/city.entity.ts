@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Supermarket } from '../supermarket/supermarket.entity';
 
 @Entity()
 export class City {
@@ -13,4 +20,8 @@ export class City {
 
   @Column()
   population: number;
+
+  @ManyToMany(() => Supermarket, (supermarket) => supermarket.cities)
+  @JoinTable()
+  supermarkets: Supermarket[];
 }
