@@ -71,7 +71,7 @@ describe('SupermarketService', () => {
   it('create should return a new supermarket', async () => {
     const supermarket: Supermarket = {
       id: '',
-      name: faker.word.adjective(),
+      name: faker.word.adjective(12),
       longitude: faker.address.longitude(),
       latitude: faker.address.latitude(),
       web_page: faker.internet.url(),
@@ -90,10 +90,29 @@ describe('SupermarketService', () => {
     expect(storedSupermarket.web_page).toEqual(newSupermarket.web_page);
   });
 
+  it('create should return a new supermarket error', async () => {
+    const supermarket: Supermarket = {
+      id: '',
+      name: faker.word.adjective(),
+      longitude: faker.address.longitude(),
+      latitude: faker.address.latitude(),
+      web_page: faker.internet.url(),
+      cities: [],
+    };
+
+    try {
+      await service.create(supermarket);
+    } catch (e) {
+      expect(e?.['message']).toEqual(
+        'The supermarket name has less than 10 characters',
+      );
+    }
+  });
+
   it('update should modify a supermarket', async () => {
     const supermarket: Supermarket = supermarketList[0];
 
-    supermarket.name = faker.word.adjective();
+    supermarket.name = faker.word.adjective(12);
     supermarket.longitude = faker.address.longitude();
     supermarket.latitude = faker.address.latitude();
     supermarket.web_page = faker.internet.url();
@@ -111,6 +130,23 @@ describe('SupermarketService', () => {
     expect(storedSupermarket.longitude).toEqual(supermarket.longitude);
     expect(storedSupermarket.latitude).toEqual(supermarket.latitude);
     expect(storedSupermarket.web_page).toEqual(supermarket.web_page);
+  });
+
+  it('update should modify a supermarket error', async () => {
+    const supermarket: Supermarket = supermarketList[0];
+
+    supermarket.name = faker.word.adjective();
+    supermarket.longitude = faker.address.longitude();
+    supermarket.latitude = faker.address.latitude();
+    supermarket.web_page = faker.internet.url();
+
+    try {
+      await service.update(supermarket.id, supermarket);
+    } catch (e) {
+      expect(e?.['message']).toEqual(
+        'The supermarket name has less than 10 characters',
+      );
+    }
   });
 
   it('update should throw an exception for an invalid supermarket', async () => {

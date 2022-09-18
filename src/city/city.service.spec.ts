@@ -7,10 +7,14 @@ import { CityService } from './city.service';
 import { faker } from '@faker-js/faker';
 import { CityDTO } from './city.dto';
 
-describe('CityService', () => {
+fdescribe('CityService', () => {
   let service: CityService;
   let repository: Repository<City>;
   let cityList: City[];
+
+  function getRandom(array: any): any {
+    return array[Math.floor(Math.random() * array.length)];
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -66,7 +70,7 @@ describe('CityService', () => {
     const city: City = {
       id: '',
       name: faker.address.city(),
-      country: faker.address.country(),
+      country: getRandom(['Argentina', 'Ecuador', 'Paraguay']),
       population: +faker.random.numeric(2),
       supermarkets: [],
     };
@@ -80,10 +84,28 @@ describe('CityService', () => {
     expect(storedCity.name).toEqual(newCity.name);
   });
 
+  it('create should return a new city error', async () => {
+    const city: City = {
+      id: '',
+      name: faker.address.city(),
+      country: faker.address.country(),
+      population: +faker.random.numeric(2),
+      supermarkets: [],
+    };
+
+    try {
+      await service.create(city);
+    } catch (e) {
+      expect(e?.['message']).toEqual(
+        'The country is not includes in Argentina, Ecuador or Paraguay',
+      );
+    }
+  });
+
   it('update should modify a city', async () => {
     const city: City = cityList[0];
     city.name = faker.address.city();
-    city.country = faker.address.country();
+    city.country = getRandom(['Argentina', 'Ecuador', 'Paraguay']);
     city.population = +faker.random.numeric(2);
 
     const updatedCity: CityDTO = await service.update(city.id, city);
@@ -95,6 +117,21 @@ describe('CityService', () => {
     expect(storedCity.name).toEqual(city.name);
     expect(storedCity.country).toEqual(city.country);
     expect(storedCity.population).toEqual(city.population);
+  });
+
+  it('update should modify a city error', async () => {
+    const city: City = cityList[0];
+    city.name = faker.address.city();
+    city.country = faker.address.country();
+    city.population = +faker.random.numeric(2);
+
+    try {
+      await service.update(city.id, city);
+    } catch (e) {
+      expect(e?.['message']).toEqual(
+        'The country is not includes in Argentina, Ecuador or Paraguay',
+      );
+    }
   });
 
   it('update should throw an exception for an invalid city', async () => {

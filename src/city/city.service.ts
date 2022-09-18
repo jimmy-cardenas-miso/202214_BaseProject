@@ -37,7 +37,7 @@ export class CityService {
 
     if (!isValidCity(cityDTO.country))
       throw new BusinessLogicException(
-        'The city is not includes in Argentina, Ecuador or Paraguay',
+        'The country is not includes in Argentina, Ecuador or Paraguay',
         BusinessError.BAD_REQUEST,
       );
 
@@ -58,7 +58,7 @@ export class CityService {
 
     if (!isValidCity(cityDTO.country))
       throw new BusinessLogicException(
-        'The city is not includes in Argentina, Ecuador or Paraguay',
+        'The country is not includes in Argentina, Ecuador or Paraguay',
         BusinessError.BAD_REQUEST,
       );
 
