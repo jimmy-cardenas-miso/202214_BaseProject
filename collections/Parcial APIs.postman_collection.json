@@ -1,0 +1,1121 @@
+{
+	"info": {
+		"_postman_id": "f04c52a9-98cb-4a9f-a956-cbf2047347ca",
+		"name": "Parcial APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15515429"
+	},
+	"item": [
+		{
+			"name": "City",
+			"item": [
+				{
+					"name": "Valid",
+					"item": [
+						{
+							"name": "Create city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function() {",
+											"    pm.response.to.have.status(201);",
+											"    ",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"city_id\", jsonData.id);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Buenos Aires\",\n   \"country\": \"Argentina\",\n   \"population\": 23\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all citites",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Quito\",\n   \"country\": \"Ecuador\",\n   \"population\": 23\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function() {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invalid",
+					"item": [
+						{
+							"name": "Create city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Bogota\",\n   \"country\": \"Colombia\",\n   \"population\": 23\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{invalid_city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{invalid_city_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Bogota\",\n   \"country\": \"Colombia\",\n   \"population\": 23\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete city",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{invalid_city_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{invalid_city_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Supermarket",
+			"item": [
+				{
+					"name": "Valid",
+					"item": [
+						{
+							"name": "Create supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function() {",
+											"    pm.response.to.have.status(201);",
+											"    ",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"supermarket_id\", jsonData.id);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Jumbo La Colina\",\n   \"longitude\": \"-154.0226\",\n   \"latitude\": \"17.5729\",\n   \"web_page\": \"https://www.google.es\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all supermarkets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Jumbo Hayuelos\",\n   \"longitude\": \"-154.0226\",\n   \"latitude\": \"17.5729\",\n   \"web_page\": \"https://www.google.es\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function() {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invalid",
+					"item": [
+						{
+							"name": "Create supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Jumbo\",\n   \"longitude\": 23.23,\n   \"latitude\": 433.23,\n   \"web_page\": \"https://www.google.es\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{invalid_supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{invalid_supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n   \"name\": \"Jumbo\",\n   \"longitude\": 23.23,\n   \"latitude\": 433.23,\n   \"web_page\": \"https://www.google.es\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/supermarkets/{{invalid_supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"supermarkets",
+										"{{invalid_supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "City-Supermarket",
+			"item": [
+				{
+					"name": "Valid",
+					"item": [
+						{
+							"name": "Create city-supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 201\", function() {",
+											"    pm.response.to.have.status(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all citites-supermarkets",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get city-supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update city-supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function() {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"id\": \"18fab0d8-188e-4358-9694-bf48cf77ef22\",\n        \"name\": \"Jumbo La Colina\",\n        \"longitude\": \"-154.0226\",\n        \"latitude\": \"17.5729\",\n        \"web_page\": \"https://www.google.es\"\n    },\n    {\n        \"id\": \"7ff7943c-d154-4ae4-9c2e-ba8b4bbff2ce\",\n        \"name\": \"Jumbo Hayuelos\",\n        \"longitude\": \"-154.0226\",\n        \"latitude\": \"17.5729\",\n        \"web_page\": \"https://www.google.es\"\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete city-supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function() {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Invalid",
+					"item": [
+						{
+							"name": "Create city-supermarket Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function() {",
+											"    pm.response.to.have.status(400);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{invalid_supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{invalid_supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get city-supermarket",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{invalid_supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{invalid_supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update city-supermarket Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n    {\n        \"id\": \"18fab0d8-188e-4358-9694-bf48cf77ef22\",\n        \"name\": \"Jumbo La Colina\",\n        \"longitude\": \"-154.0226\",\n        \"latitude\": \"17.5729\",\n        \"web_page\": \"https://www.google.es\"\n    },\n    {\n        \"id\": \"{{invalid_supermarket_id}}\",\n        \"name\": \"Jumbo Hayuelos\",\n        \"longitude\": \"-154.0226\",\n        \"latitude\": \"17.5729\",\n        \"web_page\": \"https://www.google.es\"\n    }\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete city-supermarket Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function() {",
+											"    pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/cities/{{city_id}}/supermarkets/{{invalid_supermarket_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"cities",
+										"{{city_id}}",
+										"supermarkets",
+										"{{invalid_supermarket_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "city_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "invalid_city_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "supermarket_id",
+			"value": ""
+		},
+		{
+			"key": "invalid_supermarket_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
